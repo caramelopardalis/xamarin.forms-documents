@@ -43,9 +43,6 @@ Visual Studio 2017
 
 ### ソリューションとプロジェクト
 
-Xamarin.Android のデバッグビルドとデプロイ
----
-
 Android エミュレーター
 ---
 
@@ -55,11 +52,6 @@ Visual Studio for Mac
 Xcode
 ---
 
-Xamarin.iOS のデバッグビルドとデプロイ
----
-
-iOS シミュレーター
----
 
 NuGet
 ---
@@ -80,12 +72,6 @@ XAML (ザムル) は Xamarin.Forms アプリケーションのユーザーイン
 
 XAML には GUI デザイナーがまだ存在しないので手書きする必要があります。ただし、Visual Studio による補間機能などの支援があるので単純なエディターでプレーンテキストを編集するより少しは楽です。
 
-Live Inspector
----
-
-デバッグプレビュー
----
-
 コミュニティ
 ---
 
@@ -94,3 +80,15 @@ Live Inspector
 
 デバッグ
 ---
+
+### Xamarin.Android のデバッグビルドとデプロイ
+
+### Xamarin.iOS のデバッグビルドとデプロイ
+
+### iOS シミュレーター
+
+### デバッグプレビュー
+
+#### Live Inspector
+
+#### Android Device Monitor
