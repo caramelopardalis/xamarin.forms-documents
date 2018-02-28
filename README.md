@@ -78,9 +78,11 @@ XAML には GUI デザイナーがまだ存在しないので手書きする必�
 パフォーマンス
 ---
 
-### レイアウト圧縮 (Layout Compression)
+### Layout Compression
 
-レイアウト圧縮を使うことで、ビジュアルツリーから指定されたレイアウトを削除し、ページレンダリングのパフォーマンスが改善されます。
+#### 概要
+
+Layout Compression を使うことで、ビジュアルツリーから指定されたレイアウトを削除し、ページレンダリングのパフォーマンスが改善されます。
 
 Xamarin.Forms がレイアウトを決定する際の走査範囲は 2 種類あります。
 1 つめは、ビジュアルツリーの頂点から下っていって走査するすべての要素です。
@@ -90,7 +92,9 @@ Xamarin.Forms がどのようにレイアウトを決定するかの詳細は [C
 
 レイアウト処理を行うとネイティブコントロールの階層が作成されます。ただし、この階層には Xamarin.Forms がコンテナーやラッパーとして作成した層が余分に含まれています。ネストが深くなればなるほど、Xamarin.Forms がページを表示する際の計算量が増えてしまいます。レイアウトを複雑にしてビューの数が多い場合も同様です。
 
-XAML の場合、`CompressedLayout.IsHeadless` プロパティーに `true` を指定することでレイアウト圧縮が有効になります。
+#### Layout Compression
+
+XAML の場合、`CompressedLayout.IsHeadless` プロパティーに `true` を指定することで Layout Compression が有効になります。
 
 ```xml
 <StackLayout CompressedLayout.IsHeadless="true">
@@ -104,7 +108,12 @@ C# の場合、`CompressedLayout.SetIsHeadless` メソッドの最初の引数�
 CompressedLayout.SetIsHeadless(stackLayout, true);
 ```
 
-レイアウト圧縮はビジュアルツリーからレイアウトを削除するため、視覚的な役割がある場合やタッチ入力を受け付ける場合の使用は適切ではありません。
+Layout Compression はビジュアルツリーからレイアウトを削除するため、視覚的な役割がある場合やタッチ入力を受け付ける場合は適切ではありません。
+そのため、 [VisualElement](https://developer.xamarin.com/api/type/Xamarin.Forms.VisualElement/) プロパティー (BackgroundColor、IsVisible、Rotation、Scale、TranslationX、TranslationY など) またはジェスチャーを入力させるレイアウトの場合は推奨しません。しかし、その場合でもビルドやランタイムエラーにはならず、ただ単に視覚効果が適用されないということに注意してください。
+
+#### Fast Rendereres
+
+Fast renderers は、ネイティブビューの階層を平坦化することにより Android 上の Xamarin.Forms コントロールの inflation とレンダリングコストを削減します。これによってビジュアルツリーの複雑さとメモリーの使用量を減りパフォーマンスを改善します。Fast renderers の詳細については [Fast Renderers - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/under-the-hood/fast-renderers/) を参照してください。良いケースだとビューの数が半分程度になります。
 
 **参考**
 
