@@ -106,6 +106,10 @@ CompressedLayout.SetIsHeadless(stackLayout, true);
 
 レイアウト圧縮はビジュアルツリーからレイアウトを削除するため、視覚的な役割がある場合やタッチ入力を受け付ける場合の使用は適切ではありません。
 
+**参考**
+
+* [Layout Compression - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/user-interface/layouts/layout-compression/)
+
 コミュニティ
 ---
 
