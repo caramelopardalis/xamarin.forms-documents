@@ -75,6 +75,37 @@ XAML には GUI デザイナーがまだ存在しないので手書きする必�
 
 #### サイズ
 
+パフォーマンス
+---
+
+### レイアウト圧縮 (Layout Compression)
+
+レイアウト圧縮を使うことで、ビジュアルツリーから指定されたレイアウトを削除し、ページレンダリングのパフォーマンスが改善されます。
+
+Xamarin.Forms がレイアウトを決定する際の走査範囲は 2 種類あります。
+1 つめは、ビジュアルツリーの頂点から下っていって走査するすべての要素です。
+もうひとつは、サイズや位置が変更されて最新の情報を取得できていない要素とその先祖要素です。
+
+Xamarin.Forms がどのようにレイアウトを決定するかの詳細は [Creating a Custom Layout - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/user-interface/layouts/custom/) を参照してください。
+
+レイアウト処理を行うとネイティブコントロールの階層が作成されます。ただし、この階層には Xamarin.Forms がコンテナーやラッパーとして作成した層が余分に含まれています。ネストが深くなればなるほど、Xamarin.Forms がページを表示する際の計算量が増えてしまいます。レイアウトを複雑にしてビューの数が多い場合も同様です。
+
+XAML の場合、`CompressedLayout.IsHeadless` プロパティーに `true` を指定することでレイアウト圧縮が有効になります。
+
+```xml
+<StackLayout CompressedLayout.IsHeadless="true">
+  ...
+</StackLayout>
+```
+
+C# の場合、`CompressedLayout.SetIsHeadless` メソッドの最初の引数にレイアウトインスタンスを渡すことで有効にできます。
+
+```csharp
+CompressedLayout.SetIsHeadless(stackLayout, true);
+```
+
+レイアウト圧縮はビジュアルツリーからレイアウトを削除するため、視覚的な役割がある場合やタッチ入力を受け付ける場合の使用は適切ではありません。
+
 コミュニティ
 ---
 
