@@ -113,7 +113,7 @@ Layout Compression はビジュアルツリーからレイアウトを削除す�
 
 #### Fast Rendereres
 
-Fast renderers は、ネイティブビューの階層を平坦化することにより Android 上の Xamarin.Forms コントロールの inflation とレンダリングコストを削減します。これによってビジュアルツリーの複雑さとメモリーの使用量を減りパフォーマンスを改善します。Fast renderers の詳細については [Fast Renderers - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/under-the-hood/fast-renderers/) を参照してください。良いケースだとビューの数が半分程度になります。
+Fast renderers は、ネイティブビューの階層を平坦化することにより Android 上の Xamarin.Forms コントロールの inflation とレンダリングコストを削減します。これによってビジュアルツリーの複雑さとメモリーの使用量を減らしパフォーマンスを改善します。Fast renderers の詳細については [Fast Renderers - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/under-the-hood/fast-renderers/) を参照してください。良いケースだとビューの数が半分程度になります。
 
 **参考**
 
