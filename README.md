@@ -83,6 +83,17 @@ XAML には GUI デザイナーがまだ存在しないので手書きする必�
 
 Messaging Center はメッセージの送受信を行うためのシンプルなサービスです。メッセージングベースの設計にすることで、コードの結合を減らすことができます。
 
+* Subscribe
+
+  シグネチャーを指定してメッセージを待ち、受信したときに何らかの処理を行います。
+  複数のリスナーが同じメッセージを受信することもできます。
+
+* Send
+
+  リスナーへメッセージを送ります。リスナーが存在しない場合、そのメッセージは無視されます。
+
+`MessagingService` は `Subscribe` メソッドと `Send` メソッドを持った静的クラスです。
+
 **参考**
 
 * [MessagingCenter - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/messaging-center/)
