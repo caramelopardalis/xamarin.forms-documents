@@ -1,3 +1,5 @@
+このドキュメントは参考先のめちゃ意訳などを記述してます。
+
 Android
 ---
 
@@ -83,16 +85,82 @@ XAML には GUI デザイナーがまだ存在しないので手書きする必�
 
 Messaging Center はメッセージの送受信を行うためのシンプルなサービスです。メッセージングベースの設計にすることで、コードの結合を減らすことができます。
 
+`MessagingCenter` は静的クラスであり、`Subscribe` メソッドと `Send` メソッドを持っています。
+
 * Subscribe
 
   シグネチャーを指定してメッセージを待ち、受信したときに何らかの処理を行います。
-  複数のリスナーが同じメッセージを受信することもできます。
+  複数のサブスクライバーが同じメッセージを受信することもできます。
 
 * Send
 
-  リスナーへメッセージを送ります。リスナーが存在しない場合、そのメッセージは無視されます。
+  サブスクライバーへメッセージを送ります。サブスクライバーが存在しない場合、そのメッセージは無視されます。
 
-`MessagingService` は `Subscribe` メソッドと `Send` メソッドを持った静的クラスです。
+メソッドにはアドレスとなる `message` パラメーターを指定します。また、配信方法をより詳細に制御するためにジェネリックパラメーターも指定します。例え 2 つのメッセージが同じ `message` であっても、ジェネリックパラメーターが異なる場合はそれぞれ別のサブスクライバーに送られます。
+
+`MessagingCenter` の API はシンプルです。
+
+* Subscribe<TSender> (object subscriber, string message, Action<TSender> callback, TSender source = null)
+
+* Subscribe<TSender, TArgs> (object subscriber, string message, Action<TSender, TArgs> callback, TSender source = null)
+
+* Send<TSender> (TSender sender, string message)
+
+* Send<TSender, TArgs> (TSender sender, string message, TArgs args)
+
+* Unsubscribe<TSender, TArgs> (object subscriber, string message)
+
+* Unsubscribe<TSender> (object subscriber, string message)
+
+#### MessagingCenter の使い方
+
+メッセージングはおそらくユーザーインタラクション (例えばボタンのタップ) やシステムイベント (例えばコントロールの状態の変化)、またはほかの事象 (例えば非同期ダウンロードの完了) として送ることになるでしょう。そしてサブスクライバーはたぶんユーザーインターフェースの見た目の変化やデータの保存、または他の操作などのタイミングを監視するでしょう。
+
+##### シンプルなメッセージ
+
+以下に `message` パラメーターに単純な文字列を渡す例を示します。この例では送信元が `MainPage` 型であることを期待しています。ソリューション内の任意のクラスは次のようにして監視することができます。
+
+```csharp
+MessagingCenter.Subscribe<MainPage> (this, "Hi", (sender) => {
+    // do something whenever the "Hi" message is sent
+});
+```
+
+`MainPage` クラスに次のような記述をすることで上記のサブスクライバーにメッセージを送ることができます。
+
+```csharp
+MessagingCenter.Send<MainPage> (this, "Hi");
+```
+
+上記のように書くことで、なにかのイベントのタイミング (アップロードが完了した場合など。この例だと `Hi` イベント😆) だけを知ることができます。
+
+#### 引数を渡す
+
+引数を渡す場合は `Subscribe` のジェネリックパラメーターに引数の型を指定します。
+
+```csharp
+MessagingCenter.Subscribe<MainPage, string> (this, "Hi", (sender, arg) => {
+    // do something whenever the "Hi" message is sent
+    // using the 'arg' parameter which is a string
+});
+```
+
+送信元も同様に `Send` メソッドにジェネリックパラメーターで引数の型を指定します。
+
+```csharp
+MessagingCenter.Send<MainPage, string> (this, "Hi", "John");
+```
+
+この例では `string` 型を渡していますが C# のどんな型でも渡すことができます。
+
+#### 監視の解除
+
+`Unsubcribe` メソッドに対象のシグネチャー (アドレスとジェネリックパラメーター) を指定することで、一致する監視を解除することができます。
+
+```csharp
+MessagingCenter.Unsubscribe<MainPage> (this, "Hi");
+MessagingCenter.Unsubscribe<MainPage, string> (this, "Hi");
+```
 
 **参考**
 
