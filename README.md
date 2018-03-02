@@ -63,7 +63,11 @@ Xamarin.Forms
 
 ### クロスプラットフォームの仕組み
 
-### プロファイル
+#### プロファイル
+
+#### カスタムレンダラー
+
+#### DependencyService
 
 ### XAML
 
@@ -74,6 +78,14 @@ XAML には GUI デザイナーがまだ存在しないので手書きする必�
 ### レイアウト
 
 #### サイズ
+
+### Messaging Center
+
+Messaging Center はメッセージの送受信を行うためのシンプルなサービスです。メッセージングベースの設計にすることで、コードの結合を減らすことができます。
+
+**参考**
+
+* [MessagingCenter - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/messaging-center/)
 
 パフォーマンス
 ---
