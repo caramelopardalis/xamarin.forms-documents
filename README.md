@@ -166,6 +166,111 @@ MessagingCenter.Unsubscribe<MainPage, string> (this, "Hi");
 
 * [MessagingCenter - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/messaging-center/)
 
+### トリガー
+
+XAML 上で宣言的にイベントまたはプロパティーの変化と連動してコントロールの見た目を変更することが出来ます。
+
+トリガーには 4 種類あります。
+
+* プロパティートリガー
+
+  コントロールのプロパティーが特定の値に変化したタイミングと連動することができます。
+
+* データトリガー
+
+  他のコントロールのプロパティーと連動させることができます。
+
+* イベントトリガー
+
+  コントロールのイベントが発生したタイミングと連動させることができます。
+
+* マルチトリガー
+
+  複数のトリガーを条件にすることができます。
+
+#### プロパティートリガー
+
+シンプルなトリガーは素の XAML で、対象のコントロールに `Trigger` 要素を追加することで表現できます。次の例ではフォーカスを受け取ったときに `Entry` の背景色を変更します。
+
+```xml
+<Entry Placeholder="enter name">
+    <Entry.Triggers>
+        <Trigger TargetType="Entry"
+             Property="IsFocused" Value="True">
+            <Setter Property="BackgroundColor" Value="Yellow" />
+        </Trigger>
+    </Entry.Triggers>
+</Entry>
+```
+
+次にトリガーの定義で重要な部分を示します。
+
+* TargetType
+
+  トリガーを適用するコントロールの型を指定します。
+
+* Property
+
+  適用するコントロールが監視するプロパティーを指定します。
+
+* Value
+
+  監視するプロパティーがこの値になったタイミングで Setter 要素の内容が反映されます。
+
+* Setter
+
+  トリガーの条件を満たしたときに `Setter` 要素のコレクションが反映されます。`Property` と `Value` 属性を指定する必要があります。
+
+* EnterActions と ExitActions
+
+  Setter の代わり、もしくは追加で反映するコードを記述できます。詳しくは後述します。
+
+##### スタイルでトリガーを使う
+
+アプリの `ResourcesDictionary`、ページ、またはコントロールの `Style` 要素にもトリガーを適用することができます。次の例ではページ内のすべての `Entry` コントロールに対してスタイルを反映します。
+
+```xml
+<ContentPage.Resources>
+    <ResourceDictionary>
+        <Style TargetType="Entry">
+            <Style.Triggers>
+                <Trigger TargetType="Entry"
+                         Property="IsFocused" Value="True">
+                    <Setter Property="BackgroundColor" Value="Yellow" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </ResourceDictionary>
+</ContentPage.Resources>
+```
+
+#### データトリガー
+
+他のコントロールのプロパティー値の変化を監視して、その変化に連動してトリガーを反映することが出来ます。プロパティートリガーでの `Property` 属性の代わりに `Binding` 属性に指定した値と連動します。
+
+次の例の `{Binding Source={x:Reference entry}, Path=Text.Length}` の部分でどのようにバインディングすれば良いかわかると思います。`entry` (`x:Name` 属性が一致する要素) の `Text.Length` プロパティーの値が 0 になったときにトリガーが反映されます。つまり、入力欄が空になったときにボタンが無効化されます。
+
+```xml
+<!-- the x:Name is referenced below in DataTrigger-->
+<!-- tip: make sure to set the Text="" (or some other default) -->
+<Entry x:Name="entry"
+       Text=""
+       Placeholder="required field" />
+
+<Button x:Name="button" Text="Save"
+        FontSize="Large"
+        HorizontalOptions="Center">
+    <Button.Triggers>
+        <DataTrigger TargetType="Button"
+                     Binding="{Binding Source={x:Reference entry},
+                                       Path=Text.Length}"
+                     Value="0">
+            <Setter Property="IsEnabled" Value="False" />
+        </DataTrigger>
+    </Button.Triggers>
+</Button>
+```
+
 パフォーマンス
 ---
 
