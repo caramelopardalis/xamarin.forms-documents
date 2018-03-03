@@ -1,21 +1,70 @@
 このドキュメントは参考先のめちゃ意訳などを記述してます。
 
-Android
----
+<!-- TOC -->
+
+- [Android](#android)
+    - [ガイドライン](#ガイドライン)
+    - [SDK](#sdk)
+- [iOS](#ios)
+    - [ガイドライン](#ガイドライン-1)
+    - [SDK](#sdk-1)
+- [Xamarin](#xamarin)
+    - [Xamarin.Android](#xamarinandroid)
+    - [Xamarin.iOS](#xamarinios)
+- [Visual Studio 2017](#visual-studio-2017)
+    - [ソリューションとプロジェクト](#ソリューションとプロジェクト)
+- [Android エミュレーター](#android-エミュレーター)
+- [Visual Studio for Mac](#visual-studio-for-mac)
+- [Xcode](#xcode)
+- [NuGet](#nuget)
+- [Xamarin.Forms](#xamarinforms)
+    - [処理の開始点 (エントリーポイント)](#処理の開始点-エントリーポイント)
+    - [クロスプラットフォームの仕組み](#クロスプラットフォームの仕組み)
+        - [プロファイル](#プロファイル)
+        - [カスタムレンダラー](#カスタムレンダラー)
+        - [DependencyService](#dependencyservice)
+    - [XAML](#xaml)
+    - [レイアウト](#レイアウト)
+        - [サイズ](#サイズ)
+    - [Messaging Center](#messaging-center)
+        - [MessagingCenter の使い方](#messagingcenter-の使い方)
+            - [シンプルなメッセージ](#シンプルなメッセージ)
+        - [引数を渡す](#引数を渡す)
+        - [監視の解除](#監視の解除)
+    - [トリガー](#トリガー)
+        - [プロパティートリガー](#プロパティートリガー)
+            - [スタイルでトリガーを使う](#スタイルでトリガーを使う)
+        - [データトリガー](#データトリガー)
+- [パフォーマンス](#パフォーマンス)
+    - [Layout Compression](#layout-compression)
+        - [概要](#概要)
+        - [Layout Compression](#layout-compression-1)
+        - [Fast Rendereres](#fast-rendereres)
+- [コミュニティ](#コミュニティ)
+- [書籍](#書籍)
+- [デバッグ](#デバッグ)
+    - [Xamarin.Android のデバッグビルドとデプロイ](#xamarinandroid-のデバッグビルドとデプロイ)
+    - [Xamarin.iOS のデバッグビルドとデプロイ](#xamarinios-のデバッグビルドとデプロイ)
+    - [iOS シミュレーター](#ios-シミュレーター)
+    - [デバッグプレビュー](#デバッグプレビュー)
+        - [Live Inspector](#live-inspector)
+        - [Android Device Monitor](#android-device-monitor)
+
+<!-- /TOC -->
+
+## Android
 
 ### ガイドライン
 
 ### SDK
 
-iOS
----
+## iOS
 
 ### ガイドライン
 
 ### SDK
 
-Xamarin
----
+## Xamarin
 
 ### Xamarin.Android
 
@@ -40,26 +89,19 @@ MSIL から iOS バイナリーへの AOT コンパイル、バンドルへの�
 * [iOS Architecture - Xamarin](https://developer.xamarin.com/guides/ios/under_the_hood/architecture/)
 * [iOS Build Mechanics - Xamarin](https://developer.xamarin.com/guides/ios/advanced_topics/ios-build-mechanics/)
 
-Visual Studio 2017
----
+## Visual Studio 2017
 
 ### ソリューションとプロジェクト
 
-Android エミュレーター
----
+## Android エミュレーター
 
-Visual Studio for Mac
----
+## Visual Studio for Mac
 
-Xcode
----
+## Xcode
 
+## NuGet
 
-NuGet
----
-
-Xamarin.Forms
----
+## Xamarin.Forms
 
 ### 処理の開始点 (エントリーポイント)
 
@@ -271,8 +313,7 @@ XAML 上で宣言的にイベントまたはプロパティーの変化と連動
 </Button>
 ```
 
-パフォーマンス
----
+## パフォーマンス
 
 ### Layout Compression
 
@@ -315,14 +356,11 @@ Fast renderers は、ネイティブビューの階層を平坦化すること�
 
 * [Layout Compression - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/user-interface/layouts/layout-compression/)
 
-コミュニティ
----
+## コミュニティ
 
-書籍
----
+## 書籍
 
-デバッグ
----
+## デバッグ
 
 ### Xamarin.Android のデバッグビルドとデプロイ
 
