@@ -35,6 +35,7 @@
         - [プロパティートリガー](#プロパティートリガー)
             - [スタイルでトリガーを使う](#スタイルでトリガーを使う)
         - [データトリガー](#データトリガー)
+        - [イベントトリガー](#イベントトリガー)
 - [パフォーマンス](#パフォーマンス)
     - [Layout Compression](#layout-compression)
         - [概要](#概要)
@@ -314,6 +315,26 @@ XAML 上で宣言的にイベントまたはプロパティーの変化と連動
 ```
 
 上記の例のような場合、監視対象のプロパティーにデフォルト値を指定してください。指定しない場合 null になってしまうためトリガーが反映さません。
+
+`Setter` 要素を追加することにより `EnterActions` と `ExitActions` も適用することができます。
+
+#### イベントトリガー
+
+`EventTrigger` 要素は `Clicked` などの `Event` プロパティーのみ指定する必要があります。
+
+```xml
+<EventTrigger Event="Clicked">
+    <local:NumericValidationTriggerAction />
+</EventTrigger>
+```
+
+`Setter` 要素はありませんが、ページに `xmlns:local` を定義して `local:NumericValidationTriggerAction` を参照していることに注意してください。
+
+```xml
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WorkingWithTriggers;assembly=WorkingWithTriggers"
+```
 
 ## パフォーマンス
 
