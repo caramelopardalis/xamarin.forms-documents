@@ -336,6 +336,10 @@ XAML 上で宣言的にイベントまたはプロパティーの変化と連動
              xmlns:local="clr-namespace:WorkingWithTriggers;assembly=WorkingWithTriggers"
 ```
 
+`NumericValidationTriggerAction` クラスは `TriggerAction` クラスを implements し、トリガーイベントが発生するたびに呼ばれる `Invoke` メソッドを実装するべきです。
+
+トリガーアクションは以下の処理を実装するべきです。
+
 ## パフォーマンス
 
 ### Layout Compression
