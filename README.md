@@ -336,9 +336,39 @@ XAML 上で宣言的にイベントまたはプロパティーの変化と連動
              xmlns:local="clr-namespace:WorkingWithTriggers;assembly=WorkingWithTriggers"
 ```
 
-`NumericValidationTriggerAction` クラスは `TriggerAction` クラスを implements し、トリガーイベントが発生するたびに呼ばれる `Invoke` メソッドを実装するべきです。
+`NumericValidationTriggerAction` クラスは `TriggerAction` クラスを implement し、トリガーイベントが発生するたびに呼ばれる `Invoke` メソッドを実装するべきです。
 
-トリガーアクションは以下の処理を実装するべきです。
+トリガーアクションは以下の実装を行ってください。
+
+* `TriggerAction<T>` を implement する際に、トリガーを適用するコントロールの型を指定します。`VisualElement` を指定することでさまざまなコントロールで動作するトリガーアクションを作成したり、`Entry` のような特定のコントロールの型を指定することができます
+
+* トリガーの条件が満たされるたびに呼ばれる `Invoke` メソッドをオーバーライドします
+
+* 必要に応じて、XAML 上でトリガーを定義する際に設定できるプロパティーを公開します (この例に追加するとすれば、文字数を制限するために `MinLength` プロパティーを `public` で定義することになるでしょう)
+
+```csharp
+public class NumericValidationTriggerAction : TriggerAction<Entry>
+{
+    protected override void Invoke (Entry entry)
+    {
+        double result;
+        bool isValid = Double.TryParse (entry.Text, out result);
+        entry.TextColor = isValid ? Color.Default : Color.Red;
+    }
+}
+```
+
+上記の例では追加していませんが、もし `MinLength` プロパティーを公開した場合は次のようにトリガーアクションを定義します。
+
+```xml
+<EventTrigger Event="TextChanged">
+    <local:NumericValidationTriggerAction MinLength="10" />
+</EventTrigger>
+```
+
+ResourceDictionary で複数のコントロールにトリガーを適用した場合、すべてのコントロールに同じ変更が反映されてしまうので注意してください。
+
+また、イベントトリガーでは `EnterActions` と `ExitActions` がサポートされていないので気をつけてください。
 
 ## パフォーマンス
 
