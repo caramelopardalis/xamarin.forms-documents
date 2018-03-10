@@ -36,6 +36,8 @@
             - [スタイルでトリガーを使う](#スタイルでトリガーを使う)
         - [データトリガー](#データトリガー)
         - [イベントトリガー](#イベントトリガー)
+        - [マルチトリガー](#マルチトリガー)
+            - [すべての入力を必須とするマルチトリガーを作成する](#すべての入力を必須とするマルチトリガーを作成する)
 - [パフォーマンス](#パフォーマンス)
     - [Layout Compression](#layout-compression)
         - [概要](#概要)
@@ -369,6 +371,109 @@ public class NumericValidationTriggerAction : TriggerAction<Entry>
 ResourceDictionary で複数のコントロールにトリガーを適用した場合、すべてのコントロールに同じ変更が反映されてしまうので注意してください。
 
 また、イベントトリガーでは `EnterActions` と `ExitActions` がサポートされていないので気をつけてください。
+
+#### マルチトリガー
+
+マルチトリガーは単一の条件のときはトリガーやデータトリガーに似ています。条件が複数ある場合はそれらすべてが満たされない限り反映されることはありません。
+
+次の例では 2 つの入力 (email と phone) に対してボタンのトリガーをバインドしています。
+
+```xml
+<MultiTrigger TargetType="Button">
+    <MultiTrigger.Conditions>
+        <BindingCondition Binding="{Binding Source={x:Reference email},
+                                   Path=Text.Length}"
+                               Value="0" />
+        <BindingCondition Binding="{Binding Source={x:Reference phone},
+                                   Path=Text.Length}"
+                               Value="0" />
+    </MultiTrigger.Conditions>
+
+  <Setter Property="IsEnabled" Value="False" />
+    <!-- multiple Setter elements are allowed -->
+</MultiTrigger>
+```
+
+`Conditions` コレクションは次のような `PropertyCondition` 要素を持つことができます。
+
+```xml
+<PropertyCondition Property="Text" Value="OK" />
+```
+
+##### すべての入力を必須とするマルチトリガーを作成する
+
+マルチトリガーはすべての条件が満たされたときだけ反映されます。
+
+すべての入力欄のテキストの長さが 0 かどうかを判定する場合、XAML では表現できないためコードで条件を書く必要があります。
+
+その場合、`IValueConverter` を implement することになります。次のようにコンバーターでテキストの長さが 0 であるかどうかを `bool` に変換してください。
+
+```csharp
+public class MultiTriggerConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType,
+        object parameter, CultureInfo culture)
+    {
+        if ((int)value > 0) // length > 0 ?
+            return true;            // some data has been entered
+        else
+            return false;           // input is empty
+    }
+
+    public object ConvertBack(object value, Type targetType,
+        object parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException ();
+    }
+}
+```
+
+マルチトリガーでこのコンバーターを使用する場合、次のようにリソースディクショナリーをページに追加してください (対応する `xmlns:local` 名前空間も)。
+
+```xml
+<ResourceDictionary>
+   <local:MultiTriggerConverter x:Key="dataHasBeenEntered" />
+</ResourceDictionary>
+```
+
+XAML は次のようになります (最初のマルチトリガーとして挙げた XAML の例とは少し違うことに注意してください)。
+
+* ボタンはデフォルトで `IsEnabled="false` に設定されます
+
+* マルチトリガーの条件として `Text.Length` を真偽値に変換するコンバーターを使用します
+
+* すべての条件が満たされたとき、ボタンの `IsEnabled` プロパティーが `true` になります
+
+```xml
+<Entry x:Name="user" Text="" Placeholder="user name" />
+
+<Entry x:Name="pwd" Text="" Placeholder="password" />
+
+<Button x:Name="loginButton" Text="Login"
+        FontSize="Large"
+        HorizontalOptions="Center"
+        IsEnabled="false">
+  <Button.Triggers>
+    <MultiTrigger TargetType="Button">
+      <MultiTrigger.Conditions>
+        <BindingCondition Binding="{Binding Source={x:Reference user},
+                              Path=Text.Length,
+                              Converter={StaticResource dataHasBeenEntered}}"
+                          Value="true" />
+        <BindingCondition Binding="{Binding Source={x:Reference pwd},
+                              Path=Text.Length,
+                              Converter={StaticResource dataHasBeenEntered}}"
+                          Value="true" />
+      </MultiTrigger.Conditions>
+      <Setter Property="IsEnabled" Value="True" />
+    </MultiTrigger>
+  </Button.Triggers>
+</Button>
+```
+
+**参考**
+
+* [Triggers - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/triggers/#enterexit)
 
 ## パフォーマンス
 
