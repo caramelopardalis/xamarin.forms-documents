@@ -535,4 +535,6 @@ Fast renderers は、ネイティブビューの階層を平坦化すること�
 
 #### Live Inspector
 
+Windows から Mac Agent 経由でデバッグしてる場合、Mac 側にも同じバージョンの Live Inspector をインストールする必要があります。
+
 #### Android Device Monitor
