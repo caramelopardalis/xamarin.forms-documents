@@ -509,6 +509,7 @@ CompressedLayout.SetIsHeadless(stackLayout, true);
 
 Layout Compression はビジュアルツリーからレイアウトを削除するため、視覚的な役割がある場合やタッチ入力を受け付ける場合は適切ではありません。
 そのため、 [VisualElement](https://developer.xamarin.com/api/type/Xamarin.Forms.VisualElement/) プロパティー (BackgroundColor、IsVisible、Rotation、Scale、TranslationX、TranslationY など) またはジェスチャーを入力させるレイアウトの場合は推奨しません。しかし、その場合でもビルドやランタイムエラーにはならず、ただ単に視覚効果が適用されないということに注意してください。
+試してみた感じ、`VerticalOptions`、`HorizontalOptions`、`Spacing` はあっても問題なく動いてるように見えます。
 
 #### Fast Rendereres
 
