@@ -38,6 +38,8 @@
         - [イベントトリガー](#イベントトリガー)
         - [マルチトリガー](#マルチトリガー)
             - [すべての入力を必須とするマルチトリガーを作成する](#すべての入力を必須とするマルチトリガーを作成する)
+        - [EnterActions と ExitActions](#enteractions-と-exitactions)
+    - [ジェスチャー](#ジェスチャー)
 - [パフォーマンス](#パフォーマンス)
     - [Layout Compression](#layout-compression)
         - [概要](#概要)
@@ -530,6 +532,10 @@ public class FadeTriggerAction : TriggerAction<VisualElement>
 **参考**
 
 * [Triggers - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/triggers/#enterexit)
+
+### ジェスチャー
+
+Xamarin.Forms が提供している Gesture Recognizer はイベントのバブリングがうまく行われません。例えば、子孫要素にハンドラーを指定すると親要素のハンドラーは実行されないため、共通的な処理が書きにくいです。必ずバブリングさせたい場合、有償の MR.Gestures というライブラリーの使用を検討してみてください。このライブラリーではきちんとバブリングしてくれます (宣伝したいわけじゃないですが、それしか 2018-03-17 時点では選択肢がないようにみえます)。
 
 ## パフォーマンス
 
