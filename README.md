@@ -471,6 +471,62 @@ XAML は次のようになります (最初のマルチトリガーとして挙�
 </Button>
 ```
 
+#### EnterActions と ExitActions
+
+EnterActions と ExitActions コレクションを追加し、`TriggerAction<T>` を実装したクラスを指定することで、トリガーが反映される際の変更内容をコードで表現することができます。
+
+`EnterActions` と `ExitActions` と共に `Setter` も指定することができますが、`EnterActions` や `ExitAction` とは違って即座に実行されます (`EnterActions` や `ExitActions` の完了を待ちません)。とはいえ、`Setter` で出来ることはすべてコードで表現することができます。
+
+```xml
+<Entry Placeholder="enter job title">
+    <Entry.Triggers>
+        <Trigger TargetType="Entry"
+                 Property="Entry.IsFocused" Value="True">
+            <Trigger.EnterActions>
+                <local:FadeTriggerAction StartsFrom="0" />
+            </Trigger.EnterActions>
+
+            <Trigger.ExitActions>
+                <local:FadeTriggerAction StartsFrom="1" />
+            </Trigger.ExitActions>
+                        <!-- You can use both Enter/Exit and Setter together if required -->
+        </Trigger>
+    </Entry.Triggers>
+</Entry>
+```
+
+XAML でクラスを参照する際は `xmlns:local` などのようにして使用する名前空間を指定する必要があります。
+
+```xml
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WorkingWithTriggers;assembly=WorkingWithTriggers"
+```
+
+`FadeTriggerAction` の実装は次のようになります。
+
+```csharp
+public class FadeTriggerAction : TriggerAction<VisualElement>
+{
+    public FadeTriggerAction() {}
+
+    public int StartsFrom { set; get; }
+
+    protected override void Invoke (VisualElement visual)
+    {
+            visual.Animate("", new Animation( (d)=>{
+                var val = StartsFrom==1 ? d : 1-d;
+                visual.BackgroundColor = Color.FromRgb(1, val, 1);
+
+            }),
+            length:1000, // milliseconds
+            easing: Easing.Linear);
+    }
+}
+```
+
+`EnterActions` と `ExitActions` はイベントトリガー上では無視されることに注意してください。
+
 **参考**
 
 * [Triggers - Xamarin](https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/triggers/#enterexit)
