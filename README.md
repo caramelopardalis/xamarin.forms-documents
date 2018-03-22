@@ -600,3 +600,9 @@ Fast renderers は、ネイティブビューの階層を平坦化すること�
 Windows から Mac Agent 経由でデバッグしてる場合、Mac 側にも同じバージョンの Live Inspector をインストールする必要があります。
 
 #### Android Device Monitor
+
+### ビルドエラー
+
+#### The name 'InitializeComponent' does not exist in the current context
+
+XAML のコンパイルがうまくいってないようです。PCL プロジェクトを Unload してから、Clean、Build すると直ります。
