@@ -606,3 +606,7 @@ Windows から Mac Agent 経由でデバッグしてる場合、Mac 側にも同
 #### The name 'InitializeComponent' does not exist in the current context
 
 XAML のコンパイルがうまくいってないようです。PCL プロジェクトを Unload してから、Clean、Build すると直ります。
+
+#### The "User7ZipPath" parameter is not supported by the "XamarinDownloadArchives" task. Verify the parameter exists on the task, and it is a settable public instance property.
+
+ビルドタスクのバージョンが古いと色々問題があるらしいです。NuGet でソリューションにインストールされた Xamarin.Build.Download をアップデートし、Visual Studio を再起動すると直ります。
