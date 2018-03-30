@@ -57,6 +57,18 @@
 
 <!-- /TOC -->
 
+## Xamarin.Forms をはじめた人のための Tips
+
+さらっと読んで頭の片隅にうろおぼえながらでも入ってると、後の開発中のハマりが少なくすむかもしれないです。
+
+### StackLayout や Grid の子要素間にはデフォルトで余白が設定されている
+
+### Device.BeginOnMainThread メソッドの実行順序はプラットフォームによって違う
+
+### INotifyPropertyChanged がうざったいときは PropertyChanged.Fody という選択肢がある
+
+### UI スレッドとワーカースレッド
+
 ## Android
 
 ### ガイドライン
