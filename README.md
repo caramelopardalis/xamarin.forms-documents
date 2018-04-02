@@ -110,6 +110,18 @@ MSIL から iOS バイナリーへの AOT コンパイル、バンドルへの�
 
 ### ソリューションとプロジェクト
 
+### 拡張機能
+
+#### Customize Visual Studio Window Title
+
+ウィンドウタイトルにソリューションがあるフォルダー名が表示されます。
+
+#### Productivity Power Tools 2017
+
+ファイル保存時の自動フォーマットや、プロジェクトごとにエディターのタブの色を変えるなど、細かなツールの集合体です。
+
+#### 
+
 ## Android エミュレーター
 
 ## Visual Studio for Mac
